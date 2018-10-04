@@ -28,8 +28,6 @@ COPY pi-hole-files/pihole-custom-install.sh /pihole-custom-install.sh
 COPY pi-hole-files/pihole-setupVars.conf /etc/pihole/setupVars.conf
 COPY pi-hole-files/adlists.list /etc/pihole/adlists.list
 
-COPY restart-services.sh /usr/local/bin/restart-services
-
 WORKDIR /
 
 RUN wget ${DNSCRYPT_PROXY_DOWNLOADURL} -O dnscrypt-proxy.tar.gz
@@ -44,12 +42,15 @@ RUN tar -xvzf dnscrypt-proxy.tar.gz && \
 
 WORKDIR /
 
-RUN chown root:root /pihole-custom-install.sh /etc/pihole/setupVars.conf /usr/local/bin/restart-services /etc/pihole/adlists.list
+RUN chown root:root /pihole-custom-install.sh /etc/pihole/setupVars.conf /etc/pihole/adlists.list
 
-RUN chmod 775 pihole-custom-install.sh && chmod 775 /usr/local/bin/restart-services
+RUN chmod 775 pihole-custom-install.sh
 
 RUN ./pihole-custom-install.sh --unattended
 
-HEALTHCHECK --interval=300s CMD dig @127.0.0.1 example.com || exit 1
+COPY restart-services.sh /usr/local/bin/restart-services
+RUN chown root:root /usr/local/bin/restart-services && chmod 775 /usr/local/bin/restart-services
 
-CMD ["restart-services","restart","keep-alive"]
+HEALTHCHECK --interval=300s --timeout=2s --start-period=10s CMD dig @127.0.0.1 example.com || exit 1
+
+CMD ["restart-services","restart"]
