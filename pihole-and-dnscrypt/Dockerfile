@@ -27,6 +27,7 @@ COPY dnscrypt-files/dnscrypt-proxy.toml /dnscrypt-proxy.toml
 COPY pi-hole-files/pihole-custom-install.sh /pihole-custom-install.sh
 COPY pi-hole-files/pihole-setupVars.conf /etc/pihole/setupVars.conf
 COPY pi-hole-files/adlists.list /etc/pihole/adlists.list
+COPY pi-hole-files/pihole-FTL.conf /etc/pihole/pihole-FTL.conf
 
 WORKDIR /
 
