@@ -11,4 +11,4 @@ service pihole-FTL "$serviceCMD" &&\
 
 # start the dns server(cloudflared) in foreground
 # if dns service fails the container will exit
-/cloudflared proxy-dns --address 127.0.5.3 --port 530
+/cloudflared proxy-dns --address 127.0.5.3 --port 530 --metrics "0.0.0.0:4337"

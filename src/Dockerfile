@@ -9,7 +9,7 @@ RUN apt-get install -y dialog
 
 RUN apt-get install -y resolvconf
 
-RUN apt-get install -y bc curl cron dnsutils iputils-ping lsof netcat psmisc sudo unzip wget idn2 sqlite3 dns-root-data debconf dhcpcd5 git iproute2 whiptail
+RUN apt-get install -y bc curl cron dnsutils iputils-ping lsof netcat psmisc sudo unzip wget idn2 sqlite3 dns-root-data debconf dhcpcd5 git iproute2 whiptail net-tools
 
 RUN apt-get install -y --fix-missing lighttpd php-common php-cgi php-sqlite3
 
