@@ -1,2 +1,9 @@
-# dns-setup
-Experimenting with Pi-hole and DNSCrypt-proxy on docker.
+# dnscrypt-proxy
+
+Docker container used mainly for testing purposes.
+
+Uses scaleway and cloudflare as upstream DNS providers.
+
+
+### Links
+* [dnscrypt-proxy](https://github.com/jedisct1/dnscrypt-proxy)
