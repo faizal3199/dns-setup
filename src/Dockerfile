@@ -7,22 +7,13 @@ RUN apt-get update && apt-get install -y apt-utils
 
 RUN apt-get install -y dialog
 
-RUN apt-get install -y resolvconf 
+RUN apt-get install -y resolvconf
 
 RUN apt-get install -y bc curl cron dnsutils iputils-ping lsof netcat psmisc sudo unzip wget idn2 sqlite3 dns-root-data debconf dhcpcd5 git iproute2 whiptail
 
 RUN apt-get install -y --fix-missing lighttpd php-common php-cgi php-sqlite3
 
 RUN update-ca-certificates
-
-ENV DNSCRYPT_PROXY_VERSION 2.0.17
-ENV SYSTEM linux
-ENV ARCH x86_64
-ENV SYSTEM_ARCH ${SYSTEM}_${ARCH}
-ENV SYSTEM__ARCH ${SYSTEM}-${ARCH}
-ENV DNSCRYPT_PROXY_DOWNLOADURL https://github.com/jedisct1/dnscrypt-proxy/releases/download/${DNSCRYPT_PROXY_VERSION}/dnscrypt-proxy-${SYSTEM_ARCH}-${DNSCRYPT_PROXY_VERSION}.tar.gz
-
-COPY dnscrypt-files/dnscrypt-proxy.toml /dnscrypt-proxy.toml
 
 COPY pi-hole-files/pihole-custom-install.sh /pihole-custom-install.sh
 COPY pi-hole-files/pihole-setupVars.conf /etc/pihole/setupVars.conf
@@ -31,17 +22,14 @@ COPY pi-hole-files/pihole-FTL.conf /etc/pihole/pihole-FTL.conf
 
 WORKDIR /
 
-RUN wget ${DNSCRYPT_PROXY_DOWNLOADURL} -O dnscrypt-proxy.tar.gz
+ENV CLOUDFLARED_DOWNLOAD_URL https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz
 
-RUN tar -xvzf dnscrypt-proxy.tar.gz && \
-    mv ${SYSTEM__ARCH} dnscrypt-files && \
-    rm -rf /dnscrypt-proxy.tar.gz && \
-    cd dnscrypt-files && \
-    chown root:root /dnscrypt-proxy.toml && \
-    mv /dnscrypt-proxy.toml ./ && \
-    ./dnscrypt-proxy -check
+RUN wget ${CLOUDFLARED_DOWNLOAD_URL} -O cloudflared.tar.gz
 
-WORKDIR /
+RUN tar -xvzf cloudflared.tar.gz && \
+    rm -rf cloudflared.tar.gz && \
+    chown root:root ./cloudflared && \
+    chmod +x ./cloudflared
 
 RUN chown root:root /pihole-custom-install.sh /etc/pihole/setupVars.conf /etc/pihole/adlists.list
 
