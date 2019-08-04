@@ -3,7 +3,7 @@
 docker network create --subnet=172.20.53.0/24 dns-network 2>/dev/null
 
 # Run from docker-files folder
-docker build -t pi-hole-setup:latest ./docker-files/
+docker build -t pi-hole-setup:latest ./src/
 
 docker run -d \
         --net dns-network \
