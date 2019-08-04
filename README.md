@@ -1,6 +1,6 @@
 # dnscrypt-proxy
 
-Docker container used mainly for testing purposes.
+Docker image used mainly for testing purposes.
 
 Uses scaleway and cloudflare as upstream DNS providers.
 
