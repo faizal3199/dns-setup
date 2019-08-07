@@ -15,7 +15,7 @@ RUN apt-get install -y --fix-missing lighttpd php-common php-cgi php-sqlite3
 
 RUN update-ca-certificates
 
-ENV DNSCRYPT_PROXY_VERSION 2.0.17
+ENV DNSCRYPT_PROXY_VERSION 2.0.25
 ENV SYSTEM linux
 ENV ARCH x86_64
 ENV SYSTEM_ARCH ${SYSTEM}_${ARCH}
