@@ -17,6 +17,8 @@ COPY pihole-custom-install.sh /pihole-custom-install.sh
 COPY pihole-setupVars.conf /etc/pihole/setupVars.conf
 COPY restart-pihole-services.sh /usr/local/bin/restart-pihole-services
 COPY adlists.list /etc/pihole/adlists.list
+COPY pihole-FTL.conf /etc/pihole/pihole-FTL.conf
+COPY dns-servers.conf /etc/pihole/dns-servers.conf
 
 WORKDIR /
 
@@ -26,6 +28,6 @@ RUN chmod 775 pihole-custom-install.sh && chmod 775 /usr/local/bin/restart-pihol
 
 RUN ./pihole-custom-install.sh --unattended
 
-HEALTHCHECK CMD dig @127.0.0.1 pi.hole || exit 1
+HEALTHCHECK CMD dig @127.0.0.1 example.com || exit 1
 
 CMD ["restart-pihole-services","restart","keep-alive"]
