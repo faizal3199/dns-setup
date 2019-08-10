@@ -12,7 +12,6 @@ service pihole-FTL "$serviceCMD" && \
 if [ "$2" = "keep-alive" ]; then
 	while true
 	do
-		timeout 2 dig @127.0.0.1 example.org || exit 1
 		sleep 5
 	done
 fi
